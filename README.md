@@ -12,7 +12,7 @@ Welcome to the UK Police Crime Data Visualizer! Explore past crime data in the U
 
 ## How It Works
 
-### Website Code
+**Website Code**
 
 The web application is developed using TypeScript and React, with Material UI (MUI) styling. The interactive maps are powered by Mapbox.
 
@@ -29,6 +29,7 @@ Once you request crime data for a postcode, here's what happens behind the scene
 5. **Map Navigation**: The map automatically zooms and centers on the requested postcode.
 
 **Amazon Web Services (AWS)**
+
 For hosting, AWS's s3 bucket with static hosting function enabled is used. This allows quick, efficient and with high availability hosting of the web app. The s3 bucket is located within the London region (EU_west_2) which is ideal as it's located close to the intended users (considering it's UK postcodes) and the buckets are distributed across all Availability Zones (AZs) within the region for extra redundancy. 
 
 To improve latency and efficiently, I've opted to use AWS Cloudfront as the Content Delivery Network. This provided SSL encryption and caching of the web files. Which will decrease the workload felt by the s3 and improve latency to the end user.
