@@ -1,24 +1,32 @@
-# UK Police Crime Data
-A visual map of past crime at a UK Postcode
+# UK Police Crime Data Visualizer
+
+Welcome to the UK Police Crime Data Visualizer! Explore past crime data in the UK right from your browser. Here's how to get started:
+
 ## Getting Started
 
- 1. To access this project please go to
-    [https://d29650oo6jvc4g.cloudfront.net/](https://d29650oo6jvc4g.cloudfront.net/)
-  
- 2. Enter a **UK** postcode and click `Request`. The map will then move to the postcode and it'll show you crime which has been reported to the Police within 1 mile of the postcode.
- 3. Keep repeating different postcodes!
+1. **Access the Project**: Visit [here](https://d29650oo6jvc4g.cloudfront.net/) to access the visualizer.
+   
+2. **Enter a UK Postcode**: Simply input a UK postcode and hit `Request`. The map will instantly display reported crimes within a 1-mile radius of the postcode.
 
-## How does it work?
-**Website Code**
-The web application is written in Typescript using React, with Material UI (MUI) used for the styling. Mapping is provided by Mapbox.
+3. **Explore**: Keep entering different postcodes to discover crime patterns across different areas!
 
-When the user clicks request the web app completes: 
+## How It Works
 
- 1. API call to convert postcode into Lat/Lng.
- 2. API call to get police data within 1 mile of the Lat/Lng received in step 1.
- 3. The data is then processed into a format useable with Mapbox. At this point, any entries after 100 are removed.
- 4. Processed data is then drawn onto the map.
- 5. Map is moved to the postcode location.
+### Website Code
+
+Our web application is crafted using TypeScript and React, with sleek Material UI (MUI) styling. The interactive maps are powered by Mapbox.
+
+Once you request crime data for a postcode, here's what happens behind the scenes:
+
+1. **Postcode to Coordinates**: We make an API call to convert the postcode into latitude and longitude coordinates.
+
+2. **Retrieve Crime Data**: Another API call fetches crime data reported to the police within 1 mile of the coordinates obtained in step 1.
+
+3. **Data Processing**: The received crime data is processed and formatted for seamless integration with Mapbox. We ensure only relevant information is displayed, filtering out excessive entries.
+
+4. **Visualization**: The processed data is then visually represented on the map, providing a clear overview of crime hotspots.
+
+5. **Map Navigation**: The map automatically zooms and centers on the requested postcode, making exploration effortless.
 
 **Amazon Web Services (AWS)**
 For hosting, AWS's s3 bucket with static hosting function enabled is used. This allows quick, efficient and with high availability hosting of the web app. The s3 bucket is located within the London region (EU_west_2) which is ideal as it's located close to the intended users (considering it's UK postcodes) and the buckets are distributed across all Availability Zones (AZs) within the region for extra redundancy. 
