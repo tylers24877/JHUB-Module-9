@@ -1,46 +1,25 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Getting Started
 
-## Available Scripts
+ 1. To access this project please go to
+    [d29650oo6jvc4g.cloudfront.net/](d29650oo6jvc4g.cloudfront.net/)
+  
+ 2. Enter a **UK** postcode and click `Request`. The map will then move to the postcode and it'll show you crime which has been reported to the Police within 1 mile of the postcode.
+ 3. Keep repeating different postcodes!
 
-In the project directory, you can run:
+## How does it work?
+**Website Code**
+The web application is written in Typescript using React, with Material UI (MUI) used for the styling. Mapping is provided by Mapbox.
 
-### `npm start`
+When the user clicks request the web app completes: 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ 1. API call to convert postcode into Lat/Lng.
+ 2. API call to get police data within 1 mile of the Lat/Lng received in step 1.
+ 3. The data is then processed into a format useable with Mapbox. At this point, any entries after 100 are removed.
+ 4. Processed data is then drawn onto the map.
+ 5. Map is moved to the postcode location.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**Amazon Web Services (AWS)**
+For hosting, AWS's s3 bucket with static hosting function enabled is used. This allows quick, efficient and with high availability hosting of the web app. The s3 bucket is located within the London region (EU_west_2) which is ideal as it's located close to the intended users (considering it's UK postcodes) and the buckets are distributed across all Availability Zones (AZs) within the region for extra redundancy. 
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+To improve latency and efficiently, I've opted to use AWS Cloudfront as the Content Delivery Network. This provided SSL encryption and caching of the web files. Which will decrease the workload felt by the s3 and improve latency to the end user.
