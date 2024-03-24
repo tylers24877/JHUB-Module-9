@@ -2,7 +2,7 @@
 # Getting Started
 
  1. To access this project please go to
-    [d29650oo6jvc4g.cloudfront.net/](d29650oo6jvc4g.cloudfront.net/)
+    [https://d29650oo6jvc4g.cloudfront.net/](https://d29650oo6jvc4g.cloudfront.net/)
   
  2. Enter a **UK** postcode and click `Request`. The map will then move to the postcode and it'll show you crime which has been reported to the Police within 1 mile of the postcode.
  3. Keep repeating different postcodes!
