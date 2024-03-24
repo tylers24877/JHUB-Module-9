@@ -23,12 +23,13 @@ const Form = ({
         variant="outlined"
         margin="normal"
         value={postcode}
+        placeholder="LE13 1DD"
         onChange={(e) => setPostcode(e.target.value)}
       />
       <Button
         fullWidth
         variant="contained"
-        disabled={isFetching}
+        disabled={isFetching || postcode.length === 0}
         onClick={onSubmit}
         color="primary"
       >

@@ -84,7 +84,7 @@ function App() {
               />
               {error && (
                 <Typography sx={{ pt: 2, pb: 2 }} variant="body1" color="error">
-                  Error, please try again. Use a post code like LE13 1DD
+                  Error, please try again.
                 </Typography>
               )}
               {/* Divider for separation */}
