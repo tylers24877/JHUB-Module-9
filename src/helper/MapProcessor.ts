@@ -1,23 +1,46 @@
 import { useState } from "react";
+import type { FeatureCollection } from "geojson";
+import { Feature, Point } from "geojson";
 
 // Custom hook to process map data
 const useMapProcessor = () => {
   // State to store GeoJSON data
-  const [geojson, setGeojson] = useState<any[]>([]);
+  const [geojson, setGeojson] = useState<FeatureCollection>({
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [-122.4, 37.8] },
+        properties: { id: "1", category: "test" },
+      },
+    ],
+  });
 
   // Function to process data
   const process = (data: any) => {
     let count = 0; // Counter to limit the number of features
 
-    setGeojson([]); // Clear the previous GeoJSON data
+    setGeojson({
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          geometry: { type: "Point", coordinates: [-122.4, 37.8] },
+          properties: { id: "1", category: "test" },
+        },
+      ],
+    }); // Clear the previous GeoJSON data
+    const updatedFeatures: any[] = [];
 
     // Loop through the data
     data?.forEach((item: any) => {
-      if (count >= 50) return; // Exit loop if 50 features have been added
+      if (count >= 100) return; // Exit loop if 100 features have been added
 
       // Create a feature object
-      const feature = {
+      const feature: Feature<Point, { id: string; category: string }> = {
+        type: "Feature",
         geometry: {
+          type: "Point",
           coordinates: [
             parseFloat(item.location.longitude),
             parseFloat(item.location.latitude),
@@ -26,13 +49,17 @@ const useMapProcessor = () => {
         properties: {
           id: item.id,
           category: item.category,
-          month: item.month,
         },
       };
 
       // Update GeoJSON state by appending the new feature
-      setGeojson((prevGeojson) => [...prevGeojson, feature]);
+      updatedFeatures.push(feature); // Append the new feature
       count++;
+    });
+    // Update GeoJSON state with the updated features
+    setGeojson({
+      type: "FeatureCollection",
+      features: updatedFeatures,
     });
   };
   // Return GeoJSON data and the process function
