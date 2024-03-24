@@ -32,7 +32,9 @@ const Mapping = ({
 }) => {
   // Custom hook to process map data
   const { geojson, process } = useMapProcessor();
-  const [hoverInfo, setHoverInfo] = useState<any>(null);
+  const [hoverInfo, setHoverInfo] = useState<any>(null); //state for where user is hovering
+  const [loaded, setLoaded] = useState(false); //Map loaded state
+
   const { mapA } = useMap();
 
   // Effect to process data when it changes
@@ -64,13 +66,21 @@ const Mapping = ({
       setHoverInfo(null);
     };
 
+    const handleAddLayer = () => {
+      if (mapA) {
+        setLoaded(true);
+      }
+    };
+
     if (mapA) {
       mapA.on("mousemove", "places", handleMouseMove);
       mapA.on("mouseleave", "places", handleMouseLeave);
+      mapA.on("load", handleAddLayer);
     }
 
     return () => {
       if (mapA) {
+        mapA.off("load", handleAddLayer);
         mapA.off("mousemove", "places", handleMouseMove);
         mapA.off("mouseleave", "places", handleMouseLeave);
       }
@@ -94,10 +104,12 @@ const Mapping = ({
           zoom: 13, // default zoom level
         }}
       >
-        <Source id="my-data" type="geojson" data={geojson}>
-          <Layer {...layerStyle} />
-        </Source>
-        {selectedSegment && (
+        {loaded && (
+          <Source id="my-data" type="geojson" data={geojson}>
+            <Layer {...layerStyle} />
+          </Source>
+        )}
+        {selectedSegment && loaded && (
           <Popup
             longitude={hoverInfo?.longitude}
             latitude={hoverInfo?.latitude}
